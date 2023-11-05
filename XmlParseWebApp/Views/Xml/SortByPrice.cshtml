@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "XML Processing";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>XML Processing</h2>
+
+    @using (Html.BeginForm("ProcessXml", "Xml", FormMethod.Post))
+    {
+        <div>
+            <label for="xmlUrl">Enter XML URL:</label>
+            <input type="text" name="xmlUrl" id="xmlUrl" />
+            <input type="submit" value="Process XML" />
+        </div>
+    }
+
+    @if (ViewData["DataList"] != null)
+    {
+        <h3>Processed XML Data:</h3>
+        <form method="post" asp-action="SortByPrice">
+            <input type="submit" value="Sort by Price" />
+        </form>
+        <table>
+            <tr>
+                @foreach (var item in ((List<Dictionary<string, string>>)ViewData["DataList"])[0])
+                {
+                    <th>@item.Key</th>
+                }
+            </tr>
+            @foreach (var data in (List<Dictionary<string, string>>)ViewData["DataList"])
+            {
+                <tr>
+                    @foreach (var item in data)
+                    {
+                        <td>@item.Value</td>
+                    }
+                </tr>
+            }
+        </table>
+    }
+</body>
+</html>

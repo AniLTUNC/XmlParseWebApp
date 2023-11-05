@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "XML Processing";
+}
+
+<h2>XML Processing</h2>
+
+@using (Html.BeginForm("ProcessXml", "Xml", FormMethod.Post))
+{
+    <div>
+        <label for="xmlUrl">XML URL:</label>
+        <input type="text" name="xmlUrl" id="xmlUrl" />
+        <input type="submit" value="Process XML" />
+    </div>
+}
+
+@if (ViewData["DataList"] != null)
+{
+    <h3>Processed XML Data:</h3>
+    <ul>
+        @foreach (var data in (List<Dictionary<string, string>>)ViewData["DataList"])
+        {
+            <li>
+                @foreach (var item in data)
+                {
+                    <p>@item.Key: @item.Value</p>
+                }
+            </li>
+        }
+    </ul>
+}
